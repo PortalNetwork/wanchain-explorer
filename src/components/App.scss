@@ -10,10 +10,10 @@
         font-weight: 900;
         color: #0027ec;
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
     span.text{
-        position: absolute;
+        position: fixed;
         display: block;
         width: 100%;
         height: auto;
@@ -28,7 +28,18 @@
             color: #fff;
             text-decoration: underline;
         }
-     }
+    }
+    .urllink{
+        position: fixed;
+        height: auto;
+        top: 15px;
+        right: 15px;
+        >a{
+            color: #0027ec;
+            float: left;
+            margin-left: 10px;
+        }
+    }
     .seach{
         width: 95%;
         height: 56px;
