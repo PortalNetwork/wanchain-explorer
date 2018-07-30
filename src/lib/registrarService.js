@@ -1,4 +1,4 @@
-import { getProvider, getEnsRegistrarAddress } from './web3Service';
+import { getWanchainProvider, getWanchainRegistrarAddress } from './web3Service';
 import Registrar from './registrar';
 const abi = require('ethereumjs-abi');
 const Web3 = require('web3');
@@ -6,8 +6,8 @@ let web3 = new Web3();
 let registrar = null;
 
 const setWeb3Provider = () => {
-  web3.setProvider(new web3.providers.HttpProvider(getProvider(process.env.WNS_NETWORK)));
-  registrar = new Registrar(web3, getEnsRegistrarAddress(process.env.WNS_NETWORK));
+  web3.setProvider(new web3.providers.HttpProvider(getWanchainProvider(process.env.WNS_NETWORK)));
+  registrar = new Registrar(web3, getWanchainRegistrarAddress(process.env.WNS_NETWORK));
 }
 
 export const mode = ["Open", "Auction", "Owned", "Forbidden", "Reveal", "NotYetAvailable"];
