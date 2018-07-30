@@ -43,7 +43,7 @@ export const setContent = async (name, content) => {
 export const getContent = async (name) => {
   try {
     web3.setProvider(new web3.providers.HttpProvider(getProvider(process.env.ENS_NETWORK)));
-    resolver = new Resolver(web3, getEnsResolverAddress(process.env.ENS_NETWORK));
+    resolver = new Resolver(web3, getWanchainResolverAddress(process.env.ENS_NETWORK));
     const content = await contentHash(namehash.hash(name));
     return content;
   } catch (err) {
