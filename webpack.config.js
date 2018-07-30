@@ -29,7 +29,7 @@ const config = {
     },
     devServer: {
         compress: true,
-        port: 3000,
+        port: GetRandom(3000, 4000),
         stats: {
             assets: true,
             cached: false,

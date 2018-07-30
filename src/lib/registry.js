@@ -129,7 +129,13 @@ Registry.prototype.setSubnodeOwner = function(node, label, owner, callback) {
 Registry.prototype.setResolver = function(node, resolver, callback) {
   return this.registryPromise.then(function(registry) {
     return registry.setResolverAsync(node, resolver);
-  })
+  });
+};
+
+Registry.prototype.getResolver = function(node, callback) {
+  return this.registryPromise.then(function(registry) {
+    return registry.resolverAsync(node);
+  });
 };
 
 module.exports = Registry;

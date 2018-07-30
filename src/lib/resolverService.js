@@ -1,5 +1,5 @@
 import {
-  getProvider,
+  getWanchainProvider,
   getWanchainResolverAddress
 } from './web3Service';
 import Resolver from './resolver';
@@ -16,8 +16,7 @@ let web3 = new Web3();
 let resolver = null;
 
 const setWeb3Provider = () => {
-  web3.setProvider(new web3.providers.HttpProvider(getProvider(process.env.WNS_NETWORK)));
-  resolver = new Resolver(web3, getWanchainResolverAddress(process.env.WNS_NETWORK));
+  web3.setProvider(new web3.providers.HttpProvider(getWanchainProvider(process.env.WNS_NETWORK)));
 }
 
 /**
@@ -40,11 +39,11 @@ export const setContent = async (name, content) => {
   }
 }
 
-export const getContent = async (name) => {
+export const getContent = async (name, resolver) => {
   try {
-    web3.setProvider(new web3.providers.HttpProvider(getProvider(process.env.ENS_NETWORK)));
-    resolver = new Resolver(web3, getWanchainResolverAddress(process.env.ENS_NETWORK));
-    const content = await contentHash(namehash.hash(name));
+    setWeb3Provider();
+    resolver = new Resolver(web3, resolver);
+    const content = await resolver.contentHash(namehash.hash(name));
     return content;
   } catch (err) {
     console.log('getContent: ', name, err);

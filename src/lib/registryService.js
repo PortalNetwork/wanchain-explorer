@@ -1,5 +1,5 @@
 import {
-    getProvider,
+    getWanchainProvider,
     getWanchainRegistryAddress
 } from './web3Service';
 import Registry from './registry';
@@ -10,7 +10,7 @@ let web3 = new Web3();
 let registry = null;
 
 const setWeb3Provider = () => {
-    web3.setProvider(new web3.providers.HttpProvider(getProvider(process.env.WNS_NETWORK)));
+    web3.setProvider(new web3.providers.HttpProvider(getWanchainProvider(process.env.WNS_NETWORK)));
     registry = new Registry(web3, getWanchainRegistryAddress(process.env.WNS_NETWORK));
 }
 
@@ -51,6 +51,18 @@ export const setResolver = async (name, resolver) => {
         return byteData;
     } catch (err) {
         console.log('setResolver: ', name, resolver, err);
-        return 'startAuctionsAndBid error';
+        return 'setResolver error';
+    }
+}
+
+export const getResolver = async (name) => {
+    try {
+        setWeb3Provider();
+        registry = new Registry(web3, getWanchainRegistryAddress(process.env.WNS_NETWORK));
+        const resolver = await registry.getResolver(namehash.hash(name));
+        return resolver;
+    } catch (err) {
+        console.log('getResolver: ', name, err);
+        return 'getResolver error';
     }
 }
