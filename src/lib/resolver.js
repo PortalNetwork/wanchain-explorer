@@ -299,20 +299,20 @@ function Resolver(web3, address) {
  * @param {*} content 
  * @param {*} callback 
  */
-Resolver.prototype.setContent = function(name, content, callback) {
-  return this.resolverPromise.then(function(resolver) {
+Resolver.prototype.setContent = function (name, content, callback) {
+  return this.resolverPromise.then(function (resolver) {
     return resolver.setContentAsync(name, content);
   });
 }
 
-Resolver.prototype.contentHash = function(name, callback) {
-  return this.resolverPromise.then(function(resolver) {
+Resolver.prototype.contentHash = function (name, callback) {
+  return this.resolverPromise.then(function (resolver) {
     return resolver.contentAsync(name);
   })
 }
 
-Resolver.prototype.supportsInterface = function(support, callback) {
-  return this.resolverPromise.then(function(resolver) {
+Resolver.prototype.supportsInterface = function (support, callback) {
+  return this.resolverPromise.then(function (resolver) {
     return resolver.supportsInterfaceAsync(support);
   })
 }
