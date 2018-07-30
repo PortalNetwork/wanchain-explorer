@@ -84,6 +84,7 @@ class App extends Component {
                         name="seachValue"
                         value={this.state.seachValue}
                         onChange={this.handleInputChange}
+                        placeholder="wanchain.wan"
                     />
                     <a 
                         onClick={this.handSeachitem} 
