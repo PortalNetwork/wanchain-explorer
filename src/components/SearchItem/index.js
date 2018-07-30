@@ -17,9 +17,18 @@ export default class extends Component {
     }
 
     render() {
-        const {isOpenSearch, seachValue, entries, content} = this.props;
+        const {isOpenSearch, seachValue, entries, content, address} = this.props;
         const tomeStr = moment(entries.registrationDate).format('MMMM Do YYYY, h:mm:ss a');
-        // portalnetworkweb.wan
+        const addr = (address !== undefined) ?
+            <li>
+                <h2>Address</h2>
+                <p>{address}</p>
+            </li> : "";
+        const dWeb = (content !== undefined && content.IPFSHash) ? 
+            <li>
+                <h2>ÐWEB</h2>
+                <a href={content.IPFSHash} target="_blank">{content.IPFSHash}</a>
+            </li> : "";
         return (
             <div className={cx('SearchItem', {open: isOpenSearch})}>
                 <h1 className="domainName">{seachValue}</h1>
@@ -35,11 +44,11 @@ export default class extends Component {
                     </li>
                     <li>
                         <h2>Bid Amount</h2>
-                        <p>{web3.fromWei(entries.value, 'ether')}</p>
+                        <p>{web3.fromWei(entries.value, 'ether')} WAN</p>
                     </li>
                     <li>
                         <h2>Highest Bid</h2>
-                        <p>{web3.fromWei(entries.highestBid, 'ether')}</p>
+                        <p>{web3.fromWei(entries.highestBid, 'ether')} WAN</p>
                     </li>
                 </ul>
                 <p className="titleName">Name Info</p>
@@ -52,14 +61,8 @@ export default class extends Component {
                         <h2>Owner</h2>
                         <p>{entries.owner}</p>
                     </li>
-                    <li>
-                        <h2>ÐWEB</h2>
-                        {
-                        <a href={content === undefined ? "" : content.IPFSHash} target="_blank">
-                                { content === undefined ? "" : content.IPFSHash}
-                            </a>
-                        }
-                    </li>
+                    {addr}
+                    {dWeb}
                 </ul>
             </div>
         )

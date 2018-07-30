@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SearchItem from "./SearchItem";
-import { getContent } from '../lib/resolverService';
+import { getContent, getAddress } from '../lib/resolverService';
 import { getResolver } from '../lib/registryService';
 import { fromContentHash } from '../helpers/ipfsHelper';
 import { getEntries } from '../lib/registrarService';
@@ -8,8 +8,6 @@ import { getOwner } from '../lib/deedService';
 import "./App.scss";
 import Loading from './Loading';
 class App extends Component {
-
-
     state = {
         seachValue : "",
         entries: {},
@@ -17,6 +15,7 @@ class App extends Component {
         isKeyDown: false,
         idxRes: 0,
         isOpenSearch: false,
+        address: "0x0000000000000000000000000000000000000000"
     }
 
     handleInputChange = (e) => {
@@ -44,16 +43,28 @@ class App extends Component {
             });
         });
         getResolver(`${seachdamain}.wan`).then(resolver => {
-            getContent(`${seachdamain}.wan`, resolver).then(contentHash => {
-                let t = this.state.idxRes+=1;
-                let rObj={ resolver, IPFSHash: `https://ipfs.infura.io/ipfs/${fromContentHash(contentHash)}`}
+            if (resolver === '0x0000000000000000000000000000000000000000') {
                 this.setState({
-                    content: rObj,
-                    idxRes: t
+                    content: { resolver },
+                    idxRes: 2
                 },()=>this.overResolver())
-            });
+            } else {
+                getAddress(`${seachdamain}.wan`, resolver).then(address => {
+                    getContent(`${seachdamain}.wan`, resolver).then(contentHash => {
+                        let t = this.state.idxRes+=1;
+                        let rObj={ resolver, IPFSHash: `https://ipfs.infura.io/ipfs/${fromContentHash(contentHash)}`}
+                        if (contentHash === '0x') rObj = '';
+                        this.setState({
+                            address,
+                            content: rObj,
+                            idxRes: t
+                        },()=>this.overResolver())
+                    });
+                })
+            }
         });
     }
+
     overResolver =()=>{
         if(this.state.idxRes !== 2) return;
         this.setState({
@@ -63,11 +74,10 @@ class App extends Component {
         })
     }
 
-
     render() {
         return (
             <div className="wanchain">
-                <h1>Wanchain Explorer</h1>
+                <h1>WNS Explorer</h1>
                 <div className="seach">
                     <input type="text" 
                         onKeyDown={this.handSeachitem} 
@@ -86,6 +96,7 @@ class App extends Component {
                     isOpenSearch={this.state.isOpenSearch}
                     entries={this.state.entries}
                     content={this.state.content}
+                    address={this.state.address}
                 />
                 <span className="text">
                     Powered by <a href="https://www.portal.network/" target="_blank">Portal Network</a>
