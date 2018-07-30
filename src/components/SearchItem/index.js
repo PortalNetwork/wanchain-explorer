@@ -5,6 +5,8 @@ import moment from 'moment';
 import Web3 from 'web3';
 import wanchain from 'wanchain-util';
 
+const web3 = new Web3();
+
 const cx = classnames.bind(style);
 export default class extends Component {
     state={
