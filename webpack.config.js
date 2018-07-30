@@ -122,7 +122,7 @@ const config = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Wanchain Explorer',
+            title: 'WNS Explorer',
             filename: 'index.html',
             template: 'html/template.html'
         }),

@@ -305,12 +305,33 @@ Resolver.prototype.setContent = function (name, content, callback) {
   });
 }
 
+/**
+ * 
+ * @param {*} name 
+ * @param {*} callback 
+ */
 Resolver.prototype.contentHash = function (name, callback) {
   return this.resolverPromise.then(function (resolver) {
     return resolver.contentAsync(name);
   })
 }
 
+/**
+ * 
+ * @param {*} name 
+ * @param {*} callback 
+ */
+Resolver.prototype.address = function (name, callback) {
+  return this.resolverPromise.then(function (resolver) {
+    return resolver.addrAsync(name);
+  })
+}
+
+/**
+ * 
+ * @param {*} support 
+ * @param {*} callback 
+ */
 Resolver.prototype.supportsInterface = function (support, callback) {
   return this.resolverPromise.then(function (resolver) {
     return resolver.supportsInterfaceAsync(support);
