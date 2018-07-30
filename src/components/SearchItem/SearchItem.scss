@@ -1,0 +1,53 @@
+.SearchItem{
+    width: 530px;
+    height: auto;
+    border-radius: 10px;
+    background-color: rgba(43, 95, 166, 0.9);
+    box-shadow: 2px 2px 39px 10px rgba(0, 0, 0, 0.15);
+    margin-top: 73px;
+    padding: 30px;
+    display: none;
+    &.open{
+        display: block;
+    }
+    @media screen and (max-width: 600px) {
+        width: 100%;
+    }
+    >h1.domainName{
+        font-family: Avenir;
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: 0.3px;
+        color: #ffffff;
+        margin-bottom: 35px;
+    }
+    ul.item{
+        display: block;
+        >li{
+            display: block;
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            margin-bottom: 10px;
+            >h2, >p{
+                float: left;
+            }
+            >h2{
+                font-family: Avenir;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.6;
+                color: #ffffff;
+                text-transform: uppercase;
+                display: block;
+                width: 25%;
+            }
+            >p{
+                font-family: Roboto;
+                font-size: 13px;
+                line-height: 1.4;
+                color: #ffffff;
+            }
+        }
+    }
+}
