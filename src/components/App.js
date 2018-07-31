@@ -10,12 +10,19 @@ import Loading from './Loading';
 class App extends Component {
     state = {
         searchValue : "",
+        damainVal: "",
         entries: {},
-        w: {},
+        content: {},
         isKeyDown: false,
         idxRes: 0,
         isOpenSearch: false,
-        address: "0x0000000000000000000000000000000000000000"
+        address: "0x0000000000000000000000000000000000000000",
+        isAboutOpen: false,
+    }
+
+    handOpenAboutChange=()=>{
+        let bool = !this.state.isAboutOpen;
+        this.setState({isAboutOpen: bool});
     }
 
     handleInputChange = (e) => {
@@ -23,14 +30,22 @@ class App extends Component {
         this.setState({ [name]: value });
     }
 
-    handSeachitem = e =>{
+    handSeachitem = (e) =>{
         if(this.state.isKeyDown) return;
         if(e.keyCode !== 13) return;
-        const searchResult = this.state.searchValue;
+        this.handSeachData();
+    }
+
+    handSeachitemClick = () =>{
+        if(this.state.isKeyDown) return;
+        this.handSeachData();
+    }
+
+    handSeachData=()=>{
         const keydomain = this.state.searchValue.split(".wan");
-        if(keydomain[keydomain.length - 1] !== "") return;
+        if(keydomain[keydomain.length - 1] !== "") return alert("WNS format error");
         const domain = keydomain[keydomain.length - 2].split(".");
-        const seachdamain = domain[domain.length-1];    //去頭去尾去.wan
+        const seachdamain = domain[domain.length-1];     //去頭去尾去.wan
         this.setState({isKeyDown: true, isOpenSearch: false});
         getEntries(seachdamain).then(entries => {
             getOwner(entries.deed).then(owner => {
@@ -40,38 +55,41 @@ class App extends Component {
                 this.setState({
                     entries: eObj,
                     idxRes: t
-                },()=>this.overResolver())
+                },()=>this.overResolver(`${seachdamain}.wan`))
             });
         });
-        getResolver(searchResult).then(resolver => {
+        getResolver(`${seachdamain}.wan`).then(resolver => {
+            let t = this.state.idxRes+=1;
             if (resolver === '0x0000000000000000000000000000000000000000') {
                 this.setState({
                     content: { resolver },
-                    idxRes: 2
-                },()=>this.overResolver())
+                    idxRes: t
+                },()=>this.overResolver(`${seachdamain}.wan`))
             } else {
-                getAddress(searchResult, resolver).then(address => {
-                    getContent(searchResult, resolver).then(contentHash => {
-                        let t = this.state.idxRes+=1;
+                getAddress(`${seachdamain}.wan`, resolver).then(address => {
+                    getContent(`${seachdamain}.wan`, resolver).then(contentHash => {
                         let rObj={ resolver, IPFSHash: `https://ipfs.infura.io/ipfs/${fromContentHash(contentHash)}`}
                         if (contentHash === '0x') rObj = '';
                         this.setState({
                             address,
                             content: rObj,
                             idxRes: t
-                        },()=>this.overResolver())
+                        },()=>this.overResolver(`${seachdamain}.wan`))
                     });
                 })
             }
         });
     }
 
-    overResolver =()=>{
+
+
+    overResolver =(wan)=>{
         if(this.state.idxRes !== 2) return;
         this.setState({
             isKeyDown: false,
             isOpenSearch: true,
             idxRes: 0,
+            damainVal: wan,
         })
     }
 
@@ -88,7 +106,7 @@ class App extends Component {
                         placeholder="wanchain.wan"
                     />
                     <a 
-                        onClick={this.handSeachitem} 
+                        onClick={this.handSeachitemClick} 
                         className="seach_icon"
                     ></a>
                 </div>
@@ -102,9 +120,16 @@ class App extends Component {
                     address={this.state.address}
                 />
                 <span className="text">
-                    Powered by <a href="https://www.portal.network/" target="_blank">Portal Network</a>
+                    {this.state.isAboutOpen && 
+                        <div className="info">
+                            <a onClick={this.handOpenAboutChange} className="closeInfo"><i className="fas fa-times-circle"></i></a>
+                            <p>WNS is the Wanchain Name Service which is a distributed, extensible naming system based on the Wanchain blockchain that can be used to resolve a wide variety of resources such as Wanchain addresses.</p>
+                        </div>
+                    }
+                    <a onClick={this.handOpenAboutChange}>Find out more about WNS</a>
+                    <p>Powered by <a href="https://www.portal.network/" target="_blank">Portal Network</a></p>
                 </span>
-
+                
                 <div className="urllink">
                     <a href="https://t.me/portalnetworkofficial" target="_blank"><i className="fab fa-telegram fa-2x"></i></a>
                     <a href="https://github.com/PortalNetwork/wanchain-explorer" target="_blank"><i className="fab fa-github fa-2x"></i></a>
