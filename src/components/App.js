@@ -111,9 +111,13 @@ class App extends Component {
                     address={this.state.address}
                 />
                 <span className="text">
-                    Powered by <a href="https://www.portal.network/" target="_blank">Portal Network</a>
+                    <div className="info">
+                        <p>WNS is the Wanchain Name Service which is a distributed, extensible naming system based on the Wanchain blockchain that can be used to resolve a wide variety of resources such as Wanchain addresses.</p>
+                    </div>
+                    <a>Find out more about WNS</a>
+                    <p>Powered by <a href="https://www.portal.network/" target="_blank">Portal Network</a></p>
                 </span>
-
+                
                 <div className="urllink">
                     <a href="https://t.me/portalnetworkofficial" target="_blank"><i className="fab fa-telegram fa-2x"></i></a>
                     <a href="https://github.com/PortalNetwork/wanchain-explorer" target="_blank"><i className="fab fa-github fa-2x"></i></a>
