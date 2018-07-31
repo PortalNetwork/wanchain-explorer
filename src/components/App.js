@@ -112,6 +112,7 @@ class App extends Component {
                 </div>
                 { this.state.isKeyDown && <Loading/> }
                 <SearchItem
+                    seachValue={this.state.seachValue}
                     damainVal={this.state.damainVal}
                     isOpenSearch={this.state.isOpenSearch}
                     entries={this.state.entries}
