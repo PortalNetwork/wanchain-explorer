@@ -40,32 +40,31 @@ export default class extends Component {
                         <h2>Status</h2>
                         <p>{entries.state}</p>
                     </li>
-                    <li>
-                        <h2>Dates</h2>
-                        <p>{tomeStr}</p>
-                    </li>
-                    <li>
-                        <h2>Bid Amount</h2>
-                        <p>{web3.fromWei(entries.value, 'ether')} WAN</p>
-                    </li>
-                    <li>
-                        <h2>Highest Bid</h2>
-                        <p>{web3.fromWei(entries.highestBid, 'ether')} WAN</p>
-                    </li>
+                    {entries.state === "Open" ? "" : <li><h2>Time</h2><p>{tomeStr}</p></li>}
+                    {entries.state === "Open" ? "" : <li> <h2>Bid Amount</h2> <p>{web3.fromWei(entries.value, 'ether')} WAN</p> </li>}
+                    {entries.state === "Open" ? "" : <li><h2>Highest Bid</h2><p>{web3.fromWei(entries.highestBid, 'ether')} WAN</p></li>}
+                    
                 </ul>
-                <p className="titleName">Name Info</p>
-                <ul className="item">
-                    <li>
-                        <h2>Resolver</h2>
-                        <p>{ content === undefined ? "" : content.resolver }</p>
-                    </li>
-                    <li>
-                        <h2>Owner</h2>
-                        <p>{entries.owner}</p>
-                    </li>
-                    {addr}
-                    {dWeb}
-                </ul>
+                {entries.state === "Open" ?
+                    <h3 className="available">{damainVal} is now Available for Reservation using <a href="https://beta.portal.network/" target="_blank">beta.portal.network</a> or mobile app</h3>
+                :''}
+                {entries.state === "Open" ? "" :
+                    <div>
+                        <p className="titleName">Name Info</p>
+                        <ul className="item">
+                            <li>
+                                <h2>Resolver</h2>
+                                <p>{ content === undefined ? "" : content.resolver }</p>
+                            </li>
+                            <li>
+                                <h2>Owner</h2>
+                                <p>{entries.owner}</p>
+                            </li>
+                            {addr}
+                            {dWeb}
+                        </ul>
+                    </div>
+                }
             </div>
         )
     }

@@ -2,7 +2,7 @@
     width: 530px;
     height: auto;
     @media screen and (max-width: 600px) {
-        width: 80%;
+        width: 90%;
     }
     >h1{
         font-family: Avenir;
@@ -11,22 +11,83 @@
         color: #0027ec;
         text-align: center;
         margin-bottom: 20px;
+        @media screen and (max-width: 600px) {
+            font-size: 8vw;
+        }
     }
     span.text{
         position: fixed;
         display: block;
         width: 100%;
-        height: auto;
-        overflow: hidden; 
-        line-height: 50px;
-        text-align: center;
+        height: 62px;
         bottom:0;
         left: 0;
-        color: #fff;
-        font-weight: bold;
         >a{
+            display: block;
+            text-align: center;
+            width: 220px;
+            height: auto;
+            overflow: hidden;
+            margin: 7px auto 10px auto;
             color: #fff;
             text-decoration: underline;
+            font-size: 14px;
+        }
+        >p{
+            font-size: 14px;
+            display: block;
+            width: 220px;
+            text-align: center;
+            margin: 0 auto 0px auto;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            >a{
+                color: #fff;
+                text-decoration: underline;
+            }
+        }
+        .info{
+            position: absolute;
+            width: 300px;
+            height: auto;
+            background-color: #fff;
+            border-radius: 30px;
+            bottom: 150%;
+            left: 50%;
+            margin-left: -(300px/2);
+            padding: 20px;
+            border: 3px solid #0027ec;
+            p{
+                color: #0027ec;
+                line-height: 1.2;
+                font-weight: bold;
+            }
+            >a{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 30px;
+                height: 30px;
+                position: absolute;
+                right: 5px;
+                top: 5px;
+                color: #0027ec;
+            }
+            &:before{
+                position: absolute;
+                content:"";
+                display: block;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 15px 7.5px 0 7.5px;
+                border-color: #0027ec transparent transparent transparent;
+                bottom: -9%;
+                left: 50%;
+                margin-left: -7.5px;
+
+            }
         }
     }
     .urllink{
@@ -46,6 +107,9 @@
         border-radius: 46.5px;
         background-color: #2346f7;
         margin: 0 auto;
+        @media screen and (max-width: 600px) {
+            height: 40px;
+        }
         >input{
             display: block;
             width: 85%;
@@ -61,6 +125,12 @@
             font-size: 16px;
             font-weight: 500;
             float: left;
+            &::placeholder { 
+                color: rgba($color: #fff, $alpha: 0.6);
+            }
+            @media screen and (max-width: 600px) {
+                font-size: 20px;
+            }
         }
         >a.seach_icon{
             display: block;
