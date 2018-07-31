@@ -7,7 +7,8 @@ import {
   getContentHash
 } from '../helpers/ipfsHelper';
 import {
-  contentHash
+  contentHash,
+  address
 } from '../lib/resolver';
 const abi = require('ethereumjs-abi');
 const Web3 = require('web3');
@@ -35,10 +36,15 @@ export const setContent = async (name, content) => {
     return byteData;
   } catch (err) {
     console.log('setResolver: ', name, content, err);
-    return 'startAuctionsAndBid error';
+    return 'setResolver error';
   }
 }
 
+/**
+ * 
+ * @param {*} name 
+ * @param {*} resolver 
+ */
 export const getContent = async (name, resolver) => {
   try {
     setWeb3Provider();
@@ -47,6 +53,23 @@ export const getContent = async (name, resolver) => {
     return content;
   } catch (err) {
     console.log('getContent: ', name, err);
-    return 'entries not found';
+    return 'getContent not found';
+  }
+}
+
+/**
+ * 
+ * @param {*} name 
+ * @param {*} resolver 
+ */
+export const getAddress = async (name, resolver) => {
+  try {
+    setWeb3Provider();
+    resolver = new Resolver(web3, resolver);
+    const content = await resolver.address(namehash.hash(name));
+    return content;
+  } catch (err) {
+    console.log('getAddress: ', name, err);
+    return 'getAddress not found';
   }
 }
