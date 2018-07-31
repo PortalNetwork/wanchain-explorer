@@ -7,6 +7,7 @@ import { getEntries } from '../lib/registrarService';
 import { getOwner } from '../lib/deedService';
 import "./App.scss";
 import Loading from './Loading';
+import Warning from './Warning';
 class App extends Component {
     state = {
         searchValue : "",
@@ -19,6 +20,21 @@ class App extends Component {
         isOpenSearch: false,
         address: "0x0000000000000000000000000000000000000000",
         isAboutOpen: false,
+        isError: false,
+        alertErrStr: "",
+    }
+    
+    handOpenWarning = (alertErrStr, callBack) =>{
+        this.setState({isError: true, alertErrStr: alertErrStr},()=>{
+            setTimeout(() => {
+                this.setState({isError: false});
+                if(callBack) callBack();
+            }, 3000);
+        });
+    }
+
+    closeWarningAlert=()=>{
+        this.setState({isError: false});
     }
 
     handOpenAboutChange=()=>{
@@ -44,11 +60,14 @@ class App extends Component {
 
     handSeachData=()=>{
         const keydomain = this.state.searchValue.split(".wan");
-        if(keydomain[keydomain.length - 1] !== "") return alert("WNS format error");
+        if(keydomain[keydomain.length - 1] !== "") return this.handOpenWarning("WNS format error");
         const searchResult = this.state.searchValue;
         const domain = keydomain[keydomain.length - 2].split(".");
         const seachdamain = domain[domain.length-1];     //去頭去尾去.wan
-        this.setState({isKeyDown: true, isOpenSearch: false});
+        if(seachdamain.length < 6) return this.handOpenWarning("WNS has the minimum character length of 6");
+
+
+        this.setState({isKeyDown: true, isOpenSearch: false, isAboutOpen: false,});
         getEntries(seachdamain).then(entries => {
             getOwner(entries.deed).then(owner => {
                 let t = this.state.idxRes+=1;
@@ -75,7 +94,7 @@ class App extends Component {
                         this.setState({
                             address,
                             content: rObj,
-                            idxRes: t
+                            idxRes: t,
                         },()=>this.overResolver(`${seachdamain}.wan`))
                     });
                 })
@@ -122,20 +141,28 @@ class App extends Component {
                     address={this.state.address}
                 />
                 <span className="text">
-                    {this.state.isAboutOpen && 
-                        <div className="info">
-                            <a onClick={this.handOpenAboutChange} className="closeInfo"><i className="fas fa-times-circle"></i></a>
-                            <p>WNS is the Wanchain Name Service which is a distributed, extensible naming system based on the Wanchain blockchain that can be used to resolve a wide variety of resources such as Wanchain addresses.</p>
-                        </div>
-                    }
-                    <a onClick={this.handOpenAboutChange}>Find out more about WNS</a>
                     <p>Powered by <a href="https://www.portal.network/" target="_blank">Portal Network</a></p>
                 </span>
                 
                 <div className="urllink">
-                    <a href="https://t.me/portalnetworkofficial" target="_blank"><i className="fab fa-telegram fa-2x"></i></a>
-                    <a href="https://github.com/PortalNetwork/wanchain-explorer" target="_blank"><i className="fab fa-github fa-2x"></i></a>
+                    <a href="https://t.me/portalnetworkofficial" target="_blank"><i className="fab fa-telegram fa-3x"></i></a>
+                    <a href="https://github.com/PortalNetwork/wanchain-explorer" target="_blank"><i className="fab fa-github fa-3x"></i></a>
                 </div>
+
+                <a className="textabout" onClick={this.handOpenAboutChange}>Find out more about WNS</a>
+
+                {this.state.isAboutOpen && 
+                    <div className="info">
+                        <a onClick={this.handOpenAboutChange} className="closeInfo"><i className="fas fa-times-circle"></i></a>
+                        <p>WNS is the Wanchain Name Service which is a distributed, extensible naming system based on the Wanchain blockchain that can be used to resolve a wide variety of resources such as Wanchain addresses.</p>
+                    </div>
+                }
+
+                <Warning
+                    isError={this.state.isError}
+                    alertErrStr={this.state.alertErrStr}
+                    closeWarningAlert={this.closeWarningAlert}
+                />
             </div>
         )
     }
