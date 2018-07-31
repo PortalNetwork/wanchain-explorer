@@ -2,18 +2,20 @@
     position: relative;
     width: 530px;
     height: auto;
-    max-height: 500px;
+    max-height: 470px;
     border-radius: 10px;
     background-color: rgba(43, 95, 166, 0.9);
     box-shadow: 2px 2px 39px 10px rgba(0, 0, 0, 0.15);
     margin-top: 33px;
-    padding: 30px 30px 30px 30px;
+    padding: 20px 25px 20px 25px;
     display: none;
     &.open{
         display: block;
     }
     @media screen and (max-width: 600px) {
         width: 100%;
+        margin-top: 16px;
+        padding: 20px;
     }
     >h1.domainName{
         font-family: Avenir;
@@ -24,6 +26,7 @@
         margin-bottom: 20px;
         @media screen and (max-width: 600px) {
             font-size: 5vw;
+            margin-bottom: 10px;
         }
     }
     p.titleinfo{
@@ -32,6 +35,10 @@
         letter-spacing: 0.3px;
         color: #ffffff;
         margin-bottom: 15px;
+        @media screen and (max-width: 600px) {
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
     }
     p.titleName{
         font-family: Avenir;
@@ -39,12 +46,28 @@
         letter-spacing: 0.3px;
         color: #ffffff;
         margin-bottom: 15px;
-        margin-top: 29px;
+        margin-top: 20px;
+        @media screen and (max-width: 600px) {
+            margin-bottom: 5px;
+        }
+    }
+    h3.available{
+        color: #fff;
+        font-size: 14px;
+        padding-top: 20px;
+        line-height: 1.5;
+        >a{
+            color: #fff;
+            text-decoration: underline;
+        }
     }
     ul.item{
         display: block;
         padding-bottom: 20px;
         border-bottom: 1px solid #fff;
+        @media screen and (max-width: 600px) {
+            padding-bottom: 0px;
+        }
         &:last-child{
             border-bottom: 0px;
         }
@@ -53,7 +76,7 @@
             width: 100%;
             height: auto;
             overflow: hidden;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             >h2, >p, >a{
                 float: left;
                 overflow: hidden;				

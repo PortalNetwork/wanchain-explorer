@@ -19,7 +19,7 @@ export default class extends Component {
     }
 
     render() {
-        const {isOpenSearch, seachValue, entries, content, address} = this.props;
+        const {isOpenSearch, damainVal, entries, content, address} = this.props;
         const tomeStr = moment(entries.registrationDate).format('MMMM Do YYYY, h:mm:ss a');
         const addr = (address !== undefined) ?
             <li>
@@ -33,7 +33,7 @@ export default class extends Component {
             </li> : "";
         return (
             <div className={cx('SearchItem', {open: isOpenSearch})}>
-                <h1 className="domainName">{seachValue}</h1>
+                <h1 className="domainName">{damainVal}</h1>
                 <p className="titleinfo">WNS Info</p>
                 <ul className="item">
                     <li>
@@ -43,10 +43,11 @@ export default class extends Component {
                     {entries.state === "Open" ? "" : <li><h2>Time</h2><p>{tomeStr}</p></li>}
                     {entries.state === "Open" ? "" : <li> <h2>Bid Amount</h2> <p>{web3.fromWei(entries.value, 'ether')} WAN</p> </li>}
                     {entries.state === "Open" ? "" : <li><h2>Highest Bid</h2><p>{web3.fromWei(entries.highestBid, 'ether')} WAN</p></li>}
-                    {entries.state === "Open" ?
-                         <h3>is now Available for Reservation using beta.portal.network or mobile app (<a href="https://beta.portal.network/" target="_blank">link</a>)</h3>
-                    :''}
+                    
                 </ul>
+                {entries.state === "Open" ?
+                    <h3 className="available">{damainVal} is now Available for Reservation using <a href="https://beta.portal.network/" target="_blank">beta.portal.network</a> or mobile app</h3>
+                :''}
                 {entries.state === "Open" ? "" :
                     <div>
                         <p className="titleName">Name Info</p>

@@ -10,12 +10,19 @@ import Loading from './Loading';
 class App extends Component {
     state = {
         seachValue : "",
+        damainVal: "",
         entries: {},
         content: {},
         isKeyDown: false,
         idxRes: 0,
         isOpenSearch: false,
-        address: "0x0000000000000000000000000000000000000000"
+        address: "0x0000000000000000000000000000000000000000",
+        isAboutOpen: false,
+    }
+
+    handOpenAboutChange=()=>{
+        let bool = !this.state.isAboutOpen;
+        this.setState({isAboutOpen: bool});
     }
 
     handleInputChange = (e) => {
@@ -48,7 +55,7 @@ class App extends Component {
                 this.setState({
                     entries: eObj,
                     idxRes: t
-                },()=>this.overResolver())
+                },()=>this.overResolver(`${seachdamain}.wan`))
             });
         });
         getResolver(`${seachdamain}.wan`).then(resolver => {
@@ -57,7 +64,7 @@ class App extends Component {
                 this.setState({
                     content: { resolver },
                     idxRes: t
-                },()=>this.overResolver())
+                },()=>this.overResolver(`${seachdamain}.wan`))
             } else {
                 getAddress(`${seachdamain}.wan`, resolver).then(address => {
                     getContent(`${seachdamain}.wan`, resolver).then(contentHash => {
@@ -67,7 +74,7 @@ class App extends Component {
                             address,
                             content: rObj,
                             idxRes: t
-                        },()=>this.overResolver())
+                        },()=>this.overResolver(`${seachdamain}.wan`))
                     });
                 })
             }
@@ -76,12 +83,13 @@ class App extends Component {
 
 
 
-    overResolver =()=>{
+    overResolver =(wan)=>{
         if(this.state.idxRes !== 2) return;
         this.setState({
             isKeyDown: false,
             isOpenSearch: true,
             idxRes: 0,
+            damainVal: wan,
         })
     }
 
@@ -104,17 +112,20 @@ class App extends Component {
                 </div>
                 { this.state.isKeyDown && <Loading/> }
                 <SearchItem
-                    seachValue={this.state.seachValue}
+                    damainVal={this.state.damainVal}
                     isOpenSearch={this.state.isOpenSearch}
                     entries={this.state.entries}
                     content={this.state.content}
                     address={this.state.address}
                 />
                 <span className="text">
-                    <div className="info">
-                        <p>WNS is the Wanchain Name Service which is a distributed, extensible naming system based on the Wanchain blockchain that can be used to resolve a wide variety of resources such as Wanchain addresses.</p>
-                    </div>
-                    <a>Find out more about WNS</a>
+                    {this.state.isAboutOpen && 
+                        <div className="info">
+                            <a onClick={this.handOpenAboutChange} className="closeInfo"><i className="fas fa-times-circle"></i></a>
+                            <p>WNS is the Wanchain Name Service which is a distributed, extensible naming system based on the Wanchain blockchain that can be used to resolve a wide variety of resources such as Wanchain addresses.</p>
+                        </div>
+                    }
+                    <a onClick={this.handOpenAboutChange}>Find out more about WNS</a>
                     <p>Powered by <a href="https://www.portal.network/" target="_blank">Portal Network</a></p>
                 </span>
                 
