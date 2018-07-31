@@ -44,10 +44,11 @@ export const setContent = async (name, content) => {
  * @param {*} name 
  * @param {*} resolver 
  */
-export const getContent = async (name, resolverAddr) => {
+export const getContent = async (name, resolver) => {
   try {
     setWeb3Provider();
-    resolver = new Resolver(web3, resolverAddr);
+    resolver = '0x4fa1fc37a083abe4c53b6304f389042bc0566855';
+    resolver = new Resolver(web3, resolver);
     const content = await resolver.contentHash(namehash.hash(name));
     return content;
   } catch (err) {
@@ -61,10 +62,11 @@ export const getContent = async (name, resolverAddr) => {
  * @param {*} name 
  * @param {*} resolver 
  */
-export const getAddress = async (name, resolverAddr) => {
+export const getAddress = async (name, resolver) => {
   try {
     setWeb3Provider();
-    resolver = new Resolver(web3, resolverAddr);
+    resolver = '0x4fa1fc37a083abe4c53b6304f389042bc0566855';
+    resolver = new Resolver(web3, resolver);
     const content = await resolver.address(namehash.hash(name));
     return content;
   } catch (err) {
