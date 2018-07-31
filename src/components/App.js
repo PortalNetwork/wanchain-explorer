@@ -23,13 +23,22 @@ class App extends Component {
         this.setState({ [name]: value });
     }
 
-    handSeachitem = e =>{
+    handSeachitem = (e) =>{
         if(this.state.isKeyDown) return;
         if(e.keyCode !== 13) return;
+        this.handSeachData();
+    }
+
+    handSeachitemClick = () =>{
+        if(this.state.isKeyDown) return;
+        this.handSeachData();
+    }
+
+    handSeachData=()=>{
         const keydomain = this.state.seachValue.split(".wan");
-        if(keydomain[keydomain.length - 1] !== "") return;
+        if(keydomain[keydomain.length - 1] !== "") return alert("WNS format error");
         const domain = keydomain[keydomain.length - 2].split(".");
-        const seachdamain = domain[domain.length-1];    //去頭去尾去.wan
+        const seachdamain = domain[domain.length-1];     //去頭去尾去.wan
         this.setState({isKeyDown: true, isOpenSearch: false});
         getEntries(seachdamain).then(entries => {
             getOwner(entries.deed).then(owner => {
@@ -65,6 +74,8 @@ class App extends Component {
         });
     }
 
+
+
     overResolver =()=>{
         if(this.state.idxRes !== 2) return;
         this.setState({
@@ -87,7 +98,7 @@ class App extends Component {
                         placeholder="wanchain.wan"
                     />
                     <a 
-                        onClick={this.handSeachitem} 
+                        onClick={this.handSeachitemClick} 
                         className="seach_icon"
                     ></a>
                 </div>
