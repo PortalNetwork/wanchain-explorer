@@ -10,6 +10,7 @@ import Loading from './Loading';
 class App extends Component {
     state = {
         seachValue : "",
+        damainVal: "",
         entries: {},
         content: {},
         isKeyDown: false,
@@ -48,7 +49,7 @@ class App extends Component {
                 this.setState({
                     entries: eObj,
                     idxRes: t
-                },()=>this.overResolver())
+                },()=>this.overResolver(`${seachdamain}.wan`))
             });
         });
         getResolver(`${seachdamain}.wan`).then(resolver => {
@@ -57,7 +58,7 @@ class App extends Component {
                 this.setState({
                     content: { resolver },
                     idxRes: t
-                },()=>this.overResolver())
+                },()=>this.overResolver(`${seachdamain}.wan`))
             } else {
                 getAddress(`${seachdamain}.wan`, resolver).then(address => {
                     getContent(`${seachdamain}.wan`, resolver).then(contentHash => {
@@ -67,7 +68,7 @@ class App extends Component {
                             address,
                             content: rObj,
                             idxRes: t
-                        },()=>this.overResolver())
+                        },()=>this.overResolver(`${seachdamain}.wan`))
                     });
                 })
             }
@@ -76,12 +77,13 @@ class App extends Component {
 
 
 
-    overResolver =()=>{
+    overResolver =(wan)=>{
         if(this.state.idxRes !== 2) return;
         this.setState({
             isKeyDown: false,
             isOpenSearch: true,
             idxRes: 0,
+            damainVal: wan,
         })
     }
 
@@ -104,7 +106,7 @@ class App extends Component {
                 </div>
                 { this.state.isKeyDown && <Loading/> }
                 <SearchItem
-                    seachValue={this.state.seachValue}
+                    damainVal={this.state.damainVal}
                     isOpenSearch={this.state.isOpenSearch}
                     entries={this.state.entries}
                     content={this.state.content}

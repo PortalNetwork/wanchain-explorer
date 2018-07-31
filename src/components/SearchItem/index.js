@@ -19,7 +19,7 @@ export default class extends Component {
     }
 
     render() {
-        const {isOpenSearch, seachValue, entries, content, address} = this.props;
+        const {isOpenSearch, damainVal, entries, content, address} = this.props;
         const tomeStr = moment(entries.registrationDate).format('MMMM Do YYYY, h:mm:ss a');
         const addr = (address !== undefined) ?
             <li>
@@ -33,7 +33,7 @@ export default class extends Component {
             </li> : "";
         return (
             <div className={cx('SearchItem', {open: isOpenSearch})}>
-                <h1 className="domainName">{seachValue}</h1>
+                <h1 className="domainName">{damainVal}</h1>
                 <p className="titleinfo">WNS Info</p>
                 <ul className="item">
                     <li>
@@ -41,7 +41,7 @@ export default class extends Component {
                         <p>{entries.state}</p>
                     </li>
                     <li>
-                        <h2>Time</h2>
+                        <h2>Dates</h2>
                         <p>{tomeStr}</p>
                     </li>
                     <li>
