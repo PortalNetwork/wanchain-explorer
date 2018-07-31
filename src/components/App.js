@@ -16,7 +16,13 @@ class App extends Component {
         isKeyDown: false,
         idxRes: 0,
         isOpenSearch: false,
-        address: "0x0000000000000000000000000000000000000000"
+        address: "0x0000000000000000000000000000000000000000",
+        isAboutOpen: false,
+    }
+
+    handOpenAboutChange=()=>{
+        let bool = !this.state.isAboutOpen;
+        this.setState({isAboutOpen: bool});
     }
 
     handleInputChange = (e) => {
@@ -113,9 +119,16 @@ class App extends Component {
                     address={this.state.address}
                 />
                 <span className="text">
-                    Powered by <a href="https://www.portal.network/" target="_blank">Portal Network</a>
+                    {this.state.isAboutOpen && 
+                        <div className="info">
+                            <a onClick={this.handOpenAboutChange} className="closeInfo"><i className="fas fa-times-circle"></i></a>
+                            <p>WNS is the Wanchain Name Service which is a distributed, extensible naming system based on the Wanchain blockchain that can be used to resolve a wide variety of resources such as Wanchain addresses.</p>
+                        </div>
+                    }
+                    <a onClick={this.handOpenAboutChange}>Find out more about WNS</a>
+                    <p>Powered by <a href="https://www.portal.network/" target="_blank">Portal Network</a></p>
                 </span>
-
+                
                 <div className="urllink">
                     <a href="https://t.me/portalnetworkofficial" target="_blank"><i className="fab fa-telegram fa-2x"></i></a>
                     <a href="https://github.com/PortalNetwork/wanchain-explorer" target="_blank"><i className="fab fa-github fa-2x"></i></a>
