@@ -1,0 +1,38 @@
+.Warningbox{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .Warning{
+        position: relative;
+        display: block;
+        width: auto;
+        line-height: 48px;
+        background-color: #0027ec;
+        color: #fff;
+        box-shadow: 2px 2px 39px 10px rgba(0, 0, 0, 0.15);
+        border-radius: 5px;
+        padding: 0 50px 0 20px;
+        transform: translateY(-150px);
+        transition: transform .4s;
+        @media screen and (max-width: 600px) {
+            width: 90%;
+        }
+        &.open{
+            transform: translateY(15px);
+        }
+        >a.closeErr{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 48px;
+            height: 48px;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+}

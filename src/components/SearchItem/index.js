@@ -3,10 +3,8 @@ import classnames from 'classnames/bind';
 import style from "./SearchItem.scss";
 import moment from 'moment';
 import Web3 from 'web3';
-import wanchain from 'wanchain-util';
-
+// import wanchain from 'wanchain-util';
 const web3 = new Web3();
-
 const cx = classnames.bind(style);
 export default class extends Component {
     state={
@@ -34,7 +32,7 @@ export default class extends Component {
         return (
             <div className={cx('SearchItem', {open: isOpenSearch})}>
                 <h1 className="domainName">{domainValue}</h1>
-                <p className="titleinfo">WNS Info [{domainValue}]</p>
+                <p className="titleinfo">WNS Info [ {domainValue} ]</p>
                 <ul className="item">
                     <li>
                         <h2>Status</h2>
@@ -50,7 +48,7 @@ export default class extends Component {
                 :''}
                 {entries.state === "Open" ? "" :
                     <div>
-                        <p className="titleName">Name Info [{subdomainValue}]</p>
+                        <p className="titleName">Name Info [ {subdomainValue} ]</p>
                         <ul className="item">
                             <li>
                                 <h2>Resolver</h2>
