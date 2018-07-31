@@ -27,7 +27,7 @@ class App extends Component {
         if(this.state.isKeyDown) return;
         if(e.keyCode !== 13) return;
         const keydomain = this.state.seachValue.split(".wan");
-        if(keydomain[keydomain.length - 1] !== "") return;
+        if(keydomain[keydomain.length - 1] !== "") return alert("WNS format error");
         const domain = keydomain[keydomain.length - 2].split(".");
         const seachdamain = domain[domain.length-1];    //去頭去尾去.wan
         this.setState({isKeyDown: true, isOpenSearch: false});
