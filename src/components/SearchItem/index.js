@@ -19,7 +19,7 @@ export default class extends Component {
     }
 
     render() {
-        const {isOpenSearch, damainVal, seachValue, entries, content, address} = this.props;
+        const {isOpenSearch, domainValue, searchValue, subdomainValue, entries, content, address} = this.props;
         const tomeStr = moment(entries.registrationDate).format('MMMM Do YYYY, h:mm:ss a');
         const addr = (address !== undefined) ?
             <li>
@@ -33,8 +33,8 @@ export default class extends Component {
             </li> : "";
         return (
             <div className={cx('SearchItem', {open: isOpenSearch})}>
-                <h1 className="domainName">{seachValue}</h1>
-                <p className="titleinfo">WNS Info[{damainVal}]</p>
+                <h1 className="domainName">{domainValue}</h1>
+                <p className="titleinfo">WNS Info [{domainValue}]</p>
                 <ul className="item">
                     <li>
                         <h2>Status</h2>
@@ -46,11 +46,11 @@ export default class extends Component {
                     
                 </ul>
                 {entries.state === "Open" ?
-                    <h3 className="available">{damainVal} is now Available for Reservation using <a href="https://beta.portal.network/" target="_blank">beta.portal.network</a> or mobile app</h3>
+                    <h3 className="available">{domainValue} is now Available for Reservation using <a href="https://beta.portal.network/" target="_blank">beta.portal.network</a> or mobile app</h3>
                 :''}
                 {entries.state === "Open" ? "" :
                     <div>
-                        <p className="titleName">Name Info[{seachValue}]</p>
+                        <p className="titleName">Name Info [{subdomainValue}]</p>
                         <ul className="item">
                             <li>
                                 <h2>Resolver</h2>
