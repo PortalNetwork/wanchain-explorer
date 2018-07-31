@@ -10,7 +10,8 @@ import Loading from './Loading';
 class App extends Component {
     state = {
         searchValue : "",
-        damainVal: "",
+        domainValue: "",
+        subdomainValue: "",
         entries: {},
         content: {},
         isKeyDown: false,
@@ -44,6 +45,7 @@ class App extends Component {
     handSeachData=()=>{
         const keydomain = this.state.searchValue.split(".wan");
         if(keydomain[keydomain.length - 1] !== "") return alert("WNS format error");
+        const searchResult = this.state.searchValue;
         const domain = keydomain[keydomain.length - 2].split(".");
         const seachdamain = domain[domain.length-1];     //去頭去尾去.wan
         this.setState({isKeyDown: true, isOpenSearch: false});
@@ -58,7 +60,7 @@ class App extends Component {
                 },()=>this.overResolver(`${seachdamain}.wan`))
             });
         });
-        getResolver(`${seachdamain}.wan`).then(resolver => {
+        getResolver(searchResult).then(resolver => {
             let t = this.state.idxRes+=1;
             if (resolver === '0x0000000000000000000000000000000000000000') {
                 this.setState({
@@ -66,8 +68,8 @@ class App extends Component {
                     idxRes: t
                 },()=>this.overResolver(`${seachdamain}.wan`))
             } else {
-                getAddress(`${seachdamain}.wan`, resolver).then(address => {
-                    getContent(`${seachdamain}.wan`, resolver).then(contentHash => {
+                getAddress(searchResult, resolver).then(address => {
+                    getContent(searchResult, resolver).then(contentHash => {
                         let rObj={ resolver, IPFSHash: `https://ipfs.infura.io/ipfs/${fromContentHash(contentHash)}`}
                         if (contentHash === '0x') rObj = '';
                         this.setState({
@@ -81,15 +83,14 @@ class App extends Component {
         });
     }
 
-
-
     overResolver =(wan)=>{
         if(this.state.idxRes !== 2) return;
         this.setState({
             isKeyDown: false,
             isOpenSearch: true,
             idxRes: 0,
-            damainVal: wan,
+            domainValue: wan,
+            subdomainValue: this.state.searchValue
         })
     }
 
@@ -112,7 +113,8 @@ class App extends Component {
                 </div>
                 { this.state.isKeyDown && <Loading/> }
                 <SearchItem
-                    damainVal={this.state.damainVal}
+                    domainValue={this.state.domainValue}
+                    subdomainValue={this.state.subdomainValue}
                     searchValue={this.state.searchValue}
                     isOpenSearch={this.state.isOpenSearch}
                     entries={this.state.entries}
