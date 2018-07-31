@@ -1,6 +1,5 @@
 import {
-  getWanchainProvider,
-  getWanchainResolverAddress
+  getWanchainProvider
 } from './web3Service';
 import Resolver from './resolver';
 import {
@@ -48,6 +47,7 @@ export const setContent = async (name, content) => {
 export const getContent = async (name, resolver) => {
   try {
     setWeb3Provider();
+    resolver = '0x4fa1fc37a083abe4c53b6304f389042bc0566855';
     resolver = new Resolver(web3, resolver);
     const content = await resolver.contentHash(namehash.hash(name));
     return content;
@@ -65,6 +65,7 @@ export const getContent = async (name, resolver) => {
 export const getAddress = async (name, resolver) => {
   try {
     setWeb3Provider();
+    resolver = '0x4fa1fc37a083abe4c53b6304f389042bc0566855';
     resolver = new Resolver(web3, resolver);
     const content = await resolver.address(namehash.hash(name));
     return content;

@@ -11,6 +11,8 @@ This project is a website helps you browse the Wanchain Name Service (WNS), with
 - WNS Info with state, bid value, highest bid value, finalize date
 - Name Info with owner address, IPFS hash, mapping address
 
+![WNS](./assets/wns.png)
+
 ## 🔨 Run on localhost
 
 #### Install Dependencies
