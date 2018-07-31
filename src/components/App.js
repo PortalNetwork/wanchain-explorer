@@ -11,7 +11,7 @@ class App extends Component {
     state = {
         seachValue : "",
         entries: {},
-        w: {},
+        content: {},
         isKeyDown: false,
         idxRes: 0,
         isOpenSearch: false,
@@ -43,15 +43,15 @@ class App extends Component {
             });
         });
         getResolver(`${seachdamain}.wan`).then(resolver => {
+            let t = this.state.idxRes+=1;
             if (resolver === '0x0000000000000000000000000000000000000000') {
                 this.setState({
                     content: { resolver },
-                    idxRes: 2
+                    idxRes: t
                 },()=>this.overResolver())
             } else {
                 getAddress(`${seachdamain}.wan`, resolver).then(address => {
                     getContent(`${seachdamain}.wan`, resolver).then(contentHash => {
-                        let t = this.state.idxRes+=1;
                         let rObj={ resolver, IPFSHash: `https://ipfs.infura.io/ipfs/${fromContentHash(contentHash)}`}
                         if (contentHash === '0x') rObj = '';
                         this.setState({
