@@ -9,7 +9,7 @@ import "./App.scss";
 import Loading from './Loading';
 class App extends Component {
     state = {
-        seachValue : "",
+        searchValue : "",
         damainVal: "",
         entries: {},
         content: {},
@@ -42,7 +42,7 @@ class App extends Component {
     }
 
     handSeachData=()=>{
-        const keydomain = this.state.seachValue.split(".wan");
+        const keydomain = this.state.searchValue.split(".wan");
         if(keydomain[keydomain.length - 1] !== "") return alert("WNS format error");
         const domain = keydomain[keydomain.length - 2].split(".");
         const seachdamain = domain[domain.length-1];     //去頭去尾去.wan
@@ -100,8 +100,8 @@ class App extends Component {
                 <div className="seach">
                     <input type="text" 
                         onKeyDown={this.handSeachitem} 
-                        name="seachValue"
-                        value={this.state.seachValue}
+                        name="searchValue"
+                        value={this.state.searchValue}
                         onChange={this.handleInputChange}
                         placeholder="wanchain.wan"
                     />
@@ -113,6 +113,7 @@ class App extends Component {
                 { this.state.isKeyDown && <Loading/> }
                 <SearchItem
                     damainVal={this.state.damainVal}
+                    searchValue={this.state.searchValue}
                     isOpenSearch={this.state.isOpenSearch}
                     entries={this.state.entries}
                     content={this.state.content}
