@@ -1,6 +1,6 @@
 # Wanchain Name Service Explorer
 
-<a target="_blank" href="https://github.com/PortalNetwork/nifty-game/pulls" title="PRs Welcome"><img src="https://img.shields.io/badge/PRs-welcome-blue.svg"></a>
+<a target="_blank" href="https://github.com/PortalNetwork/wanchain-explorer/pulls" title="PRs Welcome"><img src="https://img.shields.io/badge/PRs-welcome-blue.svg"></a>
 <img src="https://img.shields.io/hackage-deps/v/lens.svg"/>
 <a target="_blank" href="#"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"/></a>
 
