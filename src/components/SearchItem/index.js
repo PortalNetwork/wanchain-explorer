@@ -32,7 +32,7 @@ export default class extends Component {
         return (
             <div className={cx('SearchItem', {open: isOpenSearch})}>
                 <h1 className="domainName">{domainValue}</h1>
-                <p className="titleinfo">WNS Info [ {domainValue} ]</p>
+                <p className="titleinfo">WNS Info [ <a target="_blank" href={content.IPFSHash}>{domainValue}</a> ]</p>
                 <ul className="item">
                     <li>
                         <h2>Status</h2>
@@ -48,11 +48,11 @@ export default class extends Component {
                 :''}
                 {entries.state === "Open" ? "" :
                     <div>
-                        <p className="titleName">Name Info [ {subdomainValue} ]</p>
+                        <p className="titleName">Name Info [ <a target="_blank" href={content.IPFSHash}>{subdomainValue}</a> ]</p>
                         <ul className="item">
                             <li>
                                 <h2>Resolver</h2>
-                                <p>{ content === undefined ? "" : content.resolver }</p>
+                                <p><a target="_blank" href={`https://explorer.wanchain.org/block/addr/${content.resolver}`}>{ content === undefined ? "" : content.resolver }</a></p>
                             </li>
                             <li>
                                 <h2>Owner</h2>
