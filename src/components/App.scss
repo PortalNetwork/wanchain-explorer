@@ -64,17 +64,12 @@
         height: 30px;
         bottom:0;
         left: 0;
-        >p{
-            display: block;
-            width: 220px;
-            text-align: center;
-            margin: 0 auto 0px auto;
-            font-size: 14px;
-            color: #fff;
-            font-weight: bold;
-            text-align: center;
-            line-height: 30px;
-            
+        .footer{
+            width: 50%;
+            height: 30px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
             >a{
                 color: #fff;
                 text-decoration: underline;

@@ -141,7 +141,11 @@ class App extends Component {
                     address={this.state.address}
                 />
                 <span className="text">
-                    <p>Powered by <a href="https://www.portal.network/" target="_blank">Portal Network</a></p>
+                    <div className="footer">
+                        <a href="https://www.portal.network/" target="_blank">Powered by Portal Network</a>
+                        <a href="https://www.portal.network/privacy_policy.html" target="_blank">Privacy & Policy</a>
+                        <a href="https://www.portal.network/terms_coditions.html" target="_blank">Terms of use</a>
+                    </div>
                 </span>
                 
                 <div className="urllink">
