@@ -138,4 +138,10 @@ Registry.prototype.getResolver = function(node, callback) {
   });
 };
 
+Registry.prototype.owner = function(node, callback) {
+  return this.registryPromise.then(function(registry) {
+    return registry.ownerAsync(node);
+  })
+};
+
 module.exports = Registry;
