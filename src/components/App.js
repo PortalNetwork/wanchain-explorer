@@ -4,7 +4,8 @@ import { getContent, getAddress } from '../lib/resolverService';
 import { getResolver } from '../lib/registryService';
 import { fromContentHash } from '../helpers/ipfsHelper';
 import { getEntries } from '../lib/registrarService';
-import { getOwner } from '../lib/deedService';
+import { getOwner } from '../lib/registryService'; 
+//import { getOwner } from '../lib/deedService';
 import "./App.scss";
 import Loading from './Loading';
 import Warning from './Warning';
@@ -69,7 +70,7 @@ class App extends Component {
 
         this.setState({isKeyDown: true, isOpenSearch: false, isAboutOpen: false,});
         getEntries(seachdamain).then(entries => {
-            getOwner(entries.deed).then(owner => {
+            getOwner(`${seachdamain}.wan`).then(owner => {
                 let t = this.state.idxRes+=1;
                 let eObj = entries;
                 eObj['owner'] = owner;
