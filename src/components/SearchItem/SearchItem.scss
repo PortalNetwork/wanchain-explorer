@@ -2,7 +2,7 @@
     position: relative;
     width: 530px;
     height: auto;
-    max-height: 470px;
+    min-height: 300px;
     border-radius: 10px;
     background-color: rgba(43, 95, 166, 0.9);
     box-shadow: 2px 2px 39px 10px rgba(0, 0, 0, 0.15);
@@ -97,14 +97,14 @@
                 color: #ffffff;
                 text-transform: uppercase;
                 display: block;
-                width: 30%;
+                width: 40%;
             }
             >p >a{
                 color: #fff;
             }
             >p, >a{
                 display: block;
-                width: 70%;
+                width: 60%;
                 line-height: 1.6;
                 font-family: Roboto;
                 font-size: 13px;

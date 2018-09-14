@@ -1,6 +1,17 @@
+.appBox{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding-top: 300px;
+    &.open{
+        padding-top: 100px;
+    }
+}
+
 .wanchain{
     width: 530px;
     height: auto;
+    margin: 0 auto 0 auto;
     @media screen and (max-width: 600px) {
         width: 90%;
     }
@@ -73,6 +84,14 @@
             >a{
                 color: #fff;
                 text-decoration: underline;
+            }
+        }
+
+        &.open{
+            position: initial;
+            margin-top: 70px;
+            .footer{
+                width: 100%;
             }
         }
     }
