@@ -18,7 +18,11 @@ export default class extends Component {
 
     render() {
         const {isOpenSearch, domainValue, searchValue, subdomainValue, entries, content, address} = this.props;
-        const tomeStr = moment(entries.registrationDate).format('MMMM Do YYYY, h:mm:ss a');
+        const AuctionTimeregDate = new Date(entries.registrationDate);
+        const SubmitBidsTimeregDate = new Date(entries.registrationDate);
+        const AuctionTime = moment.utc(AuctionTimeregDate.removeDays(5)).format('MMMM Do YYYY, h:mm:ss a');
+        const SubmitBidsTime = moment.utc(SubmitBidsTimeregDate.removeDays(3)).format('MMMM Do YYYY, h:mm:ss a');
+        const RevealTime = moment.utc(entries.registrationDate).format('MMMM Do YYYY, h:mm:ss a');
         const addr = (address !== undefined) ?
             <li>
                 <h2>Address</h2>
@@ -32,15 +36,21 @@ export default class extends Component {
         return (
             <div className={cx('SearchItem', {open: isOpenSearch})}>
                 <h1 className="domainName">{domainValue}</h1>
-                <p className="titleinfo">WNS Info [ {domainValue} ]</p>
+                <p className="titleinfo">WNS Info [ <a target="_blank" href={content.IPFSHash}>{domainValue}</a> ]</p>
                 <ul className="item">
                     <li>
                         <h2>Status</h2>
                         <p>{entries.state}</p>
                     </li>
-                    {entries.state === "Open" ? "" : <li><h2>Time</h2><p>{tomeStr}</p></li>}
-                    {entries.state === "Open" ? "" : <li> <h2>Bid Amount</h2> <p>{web3.fromWei(entries.value, 'ether')} WAN</p> </li>}
-                    {entries.state === "Open" ? "" : <li><h2>Highest Bid</h2><p>{web3.fromWei(entries.highestBid, 'ether')} WAN</p></li>}
+                    
+                    {entries.state === "Open" || <li><h2>deed</h2><p>{entries.deed}</p></li>}
+
+                    {entries.state === "Open" || <li><h2>Auction Started On</h2><p>{AuctionTime}</p></li>}
+                    {entries.state === "Open" || <li><h2>Submit Bids Before</h2><p>{SubmitBidsTime}</p></li>}
+                    {entries.state === "Open" || <li><h2>Reveal Bids By</h2><p>{RevealTime}</p></li>}
+
+                    {entries.state === "Open" || <li> <h2>Bid Amount</h2> <p>{web3.fromWei(entries.value, 'ether')} WAN</p> </li>}
+                    {entries.state === "Open" || <li><h2>Highest Bid</h2><p>{web3.fromWei(entries.highestBid, 'ether')} WAN</p></li>}
                     
                 </ul>
                 {entries.state === "Open" ?
@@ -48,11 +58,11 @@ export default class extends Component {
                 :''}
                 {entries.state === "Open" ? "" :
                     <div>
-                        <p className="titleName">Name Info [ {subdomainValue} ]</p>
+                        <p className="titleName">Name Info [ <a target="_blank" href={content.IPFSHash}>{subdomainValue}</a> ]</p>
                         <ul className="item">
                             <li>
                                 <h2>Resolver</h2>
-                                <p>{ content === undefined ? "" : content.resolver }</p>
+                                <p><a target="_blank" href={`https://explorer.wanchain.org/block/addr/${content.resolver}`}>{ content === undefined ? "" : content.resolver }</a></p>
                             </li>
                             <li>
                                 <h2>Owner</h2>
